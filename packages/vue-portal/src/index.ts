@@ -26,7 +26,7 @@ export const getActivePortal = () => activePortal
 
 export const setActivePortal = (portal: Portal) => (activePortal = portal)
 
-export const createPortal = () => {
+export const createVuePortal = () => {
   const portal: Portal = {
     app: undefined as unknown as App,
     map: new WeakMap(),
@@ -39,7 +39,7 @@ export const createPortal = () => {
   return portal
 }
 
-export const usePortalComponent = <TOutput = any>() => {
+export const usePortalContext = <TOutput = any>() => {
   const portal = inject<Portal<TOutput>>(portalSymbol)
   if (!portal) {
     throw new Error('[vue-portal]: no portal found.')
@@ -64,7 +64,7 @@ export const definePortal = <TOutput = any, TProps = any>(
 ) => {
   const _portal = portal || (getCurrentInstance() && inject<Portal<TOutput>>(portalSymbol)) || activePortal
   if (!_portal) {
-    throw new Error('[vue-portal]: no portal found.')
+    throw new Error('[vue-portal]: no portal found. Do you forget install vue-portal?')
   }
 
   return (props?: TProps, children?: unknown) => {

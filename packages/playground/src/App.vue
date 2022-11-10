@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { definePortal } from 'vue-portal'
+import Comp, { Input, Output } from './components/name.vue'
 
-const dialogVisible = ref(false)
+const func = definePortal<Output, Input>(Comp)
+const result = ref('')
+const onClick = async () => {
+  const data = await func({ firstName: 'joe', lastName: 'watson' })
+  console.log(data)
+  if (!data.confirm) {
+    return
+  }
+  result.value = data.fullName
+}
 </script>
 <template>
-  <el-button text @click="dialogVisible = true"> click to open the Dialog </el-button>
-  <el-dialog v-model="dialogVisible" title="Tips">
-    <span>This is a message</span>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="dialogVisible = false"> Confirm </el-button>
-      </span>
-    </template>
-  </el-dialog>
+  <div><el-button @click="onClick"> click to open the Dialog </el-button> - {{ result }}</div>
 </template>

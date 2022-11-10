@@ -13,7 +13,7 @@
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
     "build": "pnpm --filter vue-portal run build",
-    "dev": "pnpm -r run dev"
+    "dev": "pnpm -r --parallel run dev"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",
