@@ -1,83 +1,95 @@
-import type { Plugin } from 'vite'
-import { readFile } from 'fs/promises'
-import { compileTemplate } from 'vue/compiler-sfc'
-import { optimize, OptimizeOptions } from 'svgo'
-import sprf from './svgo-plugin-replace-fill'
-import type { OptimizedSvg } from 'svgo'
+import { App, Component, VNode, createVNode, render, inject, getCurrentInstance } from 'vue'
 
-export const getDefaultSvgoOptions = (path?: string): OptimizeOptions => {
-  return {
-    path: path,
-    multipass: true,
-    plugins: [
-      'preset-default',
-      'removeDimensions',
-      {
-        name: 'removeAttrs',
-        params: {
-          attrs: 'class',
-        },
-      },
-      sprf,
-    ],
-  }
+export interface ProvideData<R> {
+  resolve: (value: R | PromiseLike<R>) => void
+  reject: (reason?: any) => void
+  el: HTMLDivElement
+  vNode: VNode
 }
 
-export interface Options {
-  svgoConfig?: (path: string) => OptimizeOptions,
-  defaultQuery?: 'component' | 'url' | 'raw'
+export interface Portal<R = any> {
+  app: App
+  map: WeakMap<VNode, ProvideData<R>>
+  install: (app: App) => void
 }
 
-export default function vpvepi(options: Options = {}): Plugin {
-  const svgRegex = /\.svg(\?(raw|component|url))?$/;
-  const { svgoConfig, defaultQuery = 'component' } = options
+export interface PortalOptions<R> {
+  portal?: Portal<R>
+  unmountDelay?: number
+}
 
-  return {
-    name: 'vite-plugin-vue-element-plus',
-    enforce: 'pre' as const,
+const portalSymbol = process.env.NODE_ENV !== 'production' ? Symbol('vue-portal') : Symbol()
 
-    async load(id: string) {
-      if (!id.match(svgRegex)) {
-        return
-      }
-      const [path, query] = id.split('?', 2)
+let activePortal: Portal
 
-      const queryType = query || defaultQuery
-      if (queryType === 'url') {
-        return
-      }
+export const getActivePortal = () => activePortal
 
-      let svgFileContent = ''
-      try {
-        svgFileContent = await readFile(path, 'utf-8')
-      } catch (e) {
-        console.warn(`#vite-plugin-vue-element-plus-icon: [${path}] couldn't be read.`, e)
-        return
-      }
+export const setActivePortal = (portal: Portal) => (activePortal = portal)
 
-      if (queryType !== 'raw') {
-        const result = optimize(
-          svgFileContent,
-          svgoConfig ? svgoConfig(path) : getDefaultSvgoOptions(path)
-        )
-        if (result.error) {
-          console.warn(
-            `#vite-plugin-vue-element-plus-icon: [${path}] couldn't be handled by svgo.`,
-            result.error
-          )
-          return
-        }
-        svgFileContent = (result as OptimizedSvg).data
-      }
-
-      const { code } = compileTemplate({
-        id: JSON.stringify(id),
-        source: svgFileContent,
-        filename: path,
-        transformAssetUrls: false,
-      })
-
-      return `${code} \n export default { render }`
+export const createPortal = () => {
+  const portal: Portal = {
+    app: undefined as unknown as App,
+    map: new WeakMap(),
+    install(app: App) {
+      portal.app = app
+      setActivePortal(portal)
+      app.provide(portalSymbol, portal)
     },
+  }
+  return portal
+}
+
+export const usePortalComponent = <TOutput = any>() => {
+  const portal = inject<Portal<TOutput>>(portalSymbol)
+  if (!portal) {
+    throw new Error('[vue-portal]: no portal found.')
+  }
+
+  const ins = getCurrentInstance()
+  if (!ins?.vnode) {
+    throw new Error('[vue-portal]: no vnode found.')
+  }
+
+  const data = portal.map.get(ins.vnode)
+  if (!data) {
+    throw new Error('[vue-portal]: no inject data found.')
+  }
+
+  return data
+}
+
+export const definePortal = <TOutput = any, TProps = any>(
+  component: Component,
+  { portal, unmountDelay = 0 }: PortalOptions<TOutput> = {}
+) => {
+  const _portal = portal || (getCurrentInstance() && inject<Portal<TOutput>>(portalSymbol)) || activePortal
+  if (!_portal) {
+    throw new Error('[vue-portal]: no portal found.')
+  }
+
+  return (props?: TProps, children?: unknown) => {
+    let el = document.createElement('div')
+    document.body.appendChild(el)
+
+    let vNode: VNode
+    const p = new Promise<TOutput>((resolve, reject) => {
+      vNode = createVNode(component, props as any, children)
+      _portal.map.set(vNode, { resolve, reject, el, vNode })
+      vNode.appContext = _portal.app._context
+      render(vNode, el)
+    })
+
+    p.finally(() => {
+      setTimeout(() => {
+        if (el) {
+          render(null, el)
+          document.body.removeChild(el)
+        }
+        el = null as any
+        vNode = null as any
+      }, unmountDelay)
+    })
+
+    return p
   }
 }

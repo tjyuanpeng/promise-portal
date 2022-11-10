@@ -1,13 +1,11 @@
 {
-  "name": "vite-plugin-vue-element-plus-icon",
+  "name": "vue-portal",
   "version": "1.0.0",
   "description": "a vite plugin to load svg icon for element-plus",
-  "author": {
-    "name": "tjyuanpeng",
-    "email": "tjyuanpeng@gmail.com"
-  },
-  "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": ">=16"
+  },
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,31 +20,30 @@
     "dist"
   ],
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "build": "tsup-node src/index.ts --dts --format esm,cjs --no-splitting --clean",
     "dev": "npm run build -- --watch"
-  },
-  "engines": {
-    "node": ">=14"
   },
   "peerDependencies": {
     "vue": "^3.2.13"
   },
   "devDependencies": {
-    "prettier": "^2.7.1",
     "tsup": "^6.2.3",
     "typescript": "^4.8.2",
-    "vite": "^3.0.9",
     "vue": "^3.2.37"
   },
+  "author": {
+    "name": "tjyuanpeng",
+    "email": "tjyuanpeng@gmail.com"
+  },
+  "homepage": "https://github.com/tjyuanpeng/vue-portal",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tjyuanpeng/vite-plugin-vue-element-plus-icon.git"
+    "url": "git+https://github.com/tjyuanpeng/vue-portal.git"
   },
-  "homepage": "https://github.com/tjyuanpeng/vite-plugin-vue-element-plus-icon",
   "bugs": {
-    "url": "https://github.com/tjyuanpeng/vite-plugin-vue-element-plus-icon/issues"
+    "url": "https://github.com/tjyuanpeng/vue-portal/issues"
   },
+  "license": "MIT",
   "keywords": [
     "vue"
   ]
