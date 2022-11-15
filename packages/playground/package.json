@@ -1,5 +1,6 @@
 {
   "name": "@vue-portal/playground",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",

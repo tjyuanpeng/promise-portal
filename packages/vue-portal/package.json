@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "a vite plugin to load svg icon for element-plus",
   "type": "module",
-  "engines": {
-    "node": ">=16"
-  },
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -45,6 +42,7 @@
   },
   "license": "MIT",
   "keywords": [
-    "vue"
+    "vue",
+    "portal"
   ]
 }
