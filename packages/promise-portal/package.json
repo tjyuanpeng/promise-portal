@@ -1,6 +1,6 @@
 {
   "name": "promise-portal",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "a vite plugin to load svg icon for element-plus",
   "type": "module",
   "main": "dist/index.cjs",
