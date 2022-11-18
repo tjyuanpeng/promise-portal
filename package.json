@@ -13,7 +13,8 @@
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
     "dev": "pnpm -r --parallel run dev",
-    "build": "pnpm --filter vueportal run build"
+    "build": "pnpm --filter vueportal run build",
+    "publish": "pnpm --filter promise-portal publish"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",
