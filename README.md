@@ -1,13 +1,16 @@
 # promise-portal
 
-promise type portal, used in vue 
+let you use react portal in vue, and with promise
 
-## Why
+## packages
 
-## Requirements
+- promise-portal
 
-- vite: ^3.0.0
-- vue: ^3.2.13
+  > source code
+
+- playground
+
+  > develop demo
 
 ## Install
 
@@ -22,10 +25,16 @@ npm install promise-portal -D
 yarn add promise-portal --D
 ```
 
-## Use
+## Develop
 
-## Reference
+```bash
+pnpm run dev
+```
 
-[@filez/portal](https://github.com/lenovo-filez/portal)
+then open `http://localhost:9001/`
 
-[promise-modal](https://github.com/liruifengv/promise-modal)
+## Build
+
+```bash
+pnpm run build
+```
