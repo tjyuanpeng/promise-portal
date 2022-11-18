@@ -1,5 +1,5 @@
 {
-  "name": "@vue-portal/root",
+  "name": "@promise-portal/root",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@7.9.0",
@@ -13,7 +13,7 @@
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
     "dev": "pnpm -r --parallel run dev",
-    "build": "pnpm --filter vue-portal run build"
+    "build": "pnpm --filter vueportal run build"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",

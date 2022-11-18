@@ -18,7 +18,7 @@ export interface PortalOptions<R> {
   unmountDelay?: number
 }
 
-const portalSymbol = process.env.NODE_ENV !== 'production' ? Symbol('vue-portal') : Symbol()
+const portalSymbol = process.env.NODE_ENV !== 'production' ? Symbol('promise-portal') : Symbol()
 
 let activePortal: Portal
 
@@ -42,17 +42,17 @@ export const createVuePortal = () => {
 export const usePortalContext = <TOutput = any>() => {
   const portal = inject<Portal<TOutput>>(portalSymbol)
   if (!portal) {
-    throw new Error('[vue-portal]: no portal found.')
+    throw new Error('[promise-portal]: no portal found.')
   }
 
   const ins = getCurrentInstance()
   if (!ins?.vnode) {
-    throw new Error('[vue-portal]: no vnode found.')
+    throw new Error('[promise-portal]: no vnode found.')
   }
 
   const data = portal.map.get(ins.vnode)
   if (!data) {
-    throw new Error('[vue-portal]: no inject data found.')
+    throw new Error('[promise-portal]: no inject data found.')
   }
 
   return data
@@ -64,7 +64,7 @@ export const definePortal = <TOutput = any, TProps = any>(
 ) => {
   const _portal = portal || (getCurrentInstance() && inject<Portal<TOutput>>(portalSymbol)) || activePortal
   if (!_portal) {
-    throw new Error('[vue-portal]: no portal found. Do you forget install vue-portal?')
+    throw new Error('[promise-portal]: no portal found. Do you forget install promise-portal?')
   }
 
   return (props?: TProps, children?: unknown) => {

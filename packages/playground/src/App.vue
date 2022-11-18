@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { definePortal } from 'vue-portal'
+import { definePortal } from 'promise-portal'
 import Comp, { Input, Output } from './components/name.vue'
 
 const func = definePortal<Output, Input>(Comp)

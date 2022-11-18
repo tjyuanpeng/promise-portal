@@ -1,5 +1,5 @@
 {
-  "name": "@vue-portal/playground",
+  "name": "@promise-portal/playground",
   "private": true,
   "type": "module",
   "scripts": {
@@ -15,6 +15,6 @@
   "dependencies": {
     "element-plus": "^2.2.20",
     "vue": "^3.2.44",
-    "vue-portal": "workspace:*"
+    "promise-portal": "workspace:*"
   }
 }

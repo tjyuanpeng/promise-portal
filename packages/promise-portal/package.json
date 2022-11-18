@@ -1,5 +1,5 @@
 {
-  "name": "vue-portal",
+  "name": "promise-portal",
   "version": "1.0.0",
   "description": "a vite plugin to load svg icon for element-plus",
   "type": "module",
@@ -32,13 +32,13 @@
     "name": "tjyuanpeng",
     "email": "tjyuanpeng@gmail.com"
   },
-  "homepage": "https://github.com/tjyuanpeng/vue-portal",
+  "homepage": "https://github.com/tjyuanpeng/promise-portal",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tjyuanpeng/vue-portal.git"
+    "url": "git+https://github.com/tjyuanpeng/promise-portal.git"
   },
   "bugs": {
-    "url": "https://github.com/tjyuanpeng/vue-portal/issues"
+    "url": "https://github.com/tjyuanpeng/promise-portal/issues"
   },
   "license": "MIT",
   "keywords": [

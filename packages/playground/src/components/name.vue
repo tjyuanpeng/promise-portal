@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { usePortalContext } from 'vue-portal'
+import { usePortalContext } from 'promise-portal'
 
 export interface Input {
   firstName: string

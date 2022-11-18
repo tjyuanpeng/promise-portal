@@ -52,6 +52,6 @@ jobs:
         run: pnpm run build
 
       - name: Publish
-        run: pnpm --filter vue-portal publish
+        run: pnpm --filter promise-portal publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
