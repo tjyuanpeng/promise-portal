@@ -24,7 +24,7 @@ yarn add promise-portal --D
 import { createPromisePortal } from 'promise-portal'
 
 const app = createApp(App)
-app.use(createVuePortal())
+app.use(createPromisePortal())
 ```
 
 ### in component, use `usePortalContext` to get portal context
@@ -56,7 +56,106 @@ const onClick = async () => {
 }
 ```
 
-## Reference
+## API Reference
+
+- createPromisePortal
+
+  create promise-portal instance
+
+  ```ts
+  const instance = createPromisePortal()
+  app.use(instance) // vue instance
+  ```
+
+- getActiveInstance
+
+  get active promise-portal instance
+
+  ```ts
+  const instance = getActiveInstance()
+  ```
+
+- setActiveInstance
+
+  set promise-portal instance to be active
+
+  ```ts
+  setActiveInstance(instance)
+  ```
+
+- usePortalContext
+
+  a vue composition api, use in portal component to get context of portal
+
+  ```ts
+  const { resolve, reject, el, vNode } = usePortalContext()
+  // resolve: promise resolve handler
+  // reject: promise reject handler
+  // el: portal base element, injecting to body element
+  // vNode: portal base vue vnode
+  ```
+
+  you can use typescript generic types
+
+  ```ts
+  const { resolve } = usePortalContext<Output>()
+  resolve({ ... })    // an object of type Output
+  ```
+
+- definePortal
+
+  define a portal, return a portal function
+
+  ```ts
+  import Comp from './component.vue'
+  const portal = definePortal(Comp)
+  portal() // return a promise
+  ```
+
+  you can define generic types to check input object and output object
+
+  ```ts
+  // component.vue
+  export interface Input {
+    firstName: string
+    lastName: string
+  }
+
+  export interface Output {
+    fullName: string
+    confirm: boolean
+  }
+
+  const props = defineProps<Input>()
+  const { resolve } = usePortalContext<Output>()
+
+  // App.vue
+  import Comp, { Input, Output } from './component.vue'
+  const portal = definePortal<Output, Input>(Comp)
+  const output = await portal({
+    firstName: 'joe',
+    lastName: 'watson',
+  })
+  ```
+
+  how to define a portal with empty parameter
+
+  ```ts
+  // component.vue
+  export interface Output {
+    fullName: string
+    confirm: boolean
+  }
+
+  const { resolve } = usePortalContext<Output>()
+
+  // App.vue
+  import Comp, { Output } from './component.vue'
+  const portal = definePortal<Output, void>(Comp)
+  const output = await portal() // only allow empty parameter
+  ```
+
+## Link
 
 [@filez/portal](https://github.com/lenovo-filez/portal)
 

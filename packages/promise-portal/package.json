@@ -43,6 +43,7 @@
   "license": "MIT",
   "keywords": [
     "vue",
+    "promise",
     "portal"
   ]
 }

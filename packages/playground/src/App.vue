@@ -4,6 +4,7 @@ import { definePortal } from 'promise-portal'
 import Comp, { Input, Output } from './components/name.vue'
 
 const func = definePortal<Output, Input>(Comp)
+
 const result = ref('')
 const onClick = async () => {
   const data = await func({ firstName: 'joe', lastName: 'watson' })

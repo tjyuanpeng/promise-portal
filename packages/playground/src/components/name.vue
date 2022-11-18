@@ -14,9 +14,11 @@ export interface Output {
 
 const props = defineProps<Input>()
 const { resolve } = usePortalContext<Output>()
+
 const show = ref(true)
 const middleName = ref('patrick')
 const fullName = computed(() => `${props.firstName} ${middleName.value} ${props.lastName}`)
+
 const onConfirm = () => {
   resolve({ confirm: true, fullName: fullName.value })
 }
