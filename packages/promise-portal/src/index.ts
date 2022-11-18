@@ -26,7 +26,7 @@ export const getActivePortal = () => activePortal
 
 export const setActivePortal = (portal: Portal) => (activePortal = portal)
 
-export const createVuePortal = () => {
+export const createPromisePortal = () => {
   const portal: Portal = {
     app: undefined as unknown as App,
     map: new WeakMap(),

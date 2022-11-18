@@ -2,7 +2,7 @@
   // general
   "editor.formatOnSave": true,
   "editor.rulers": [
-    100
+    120
   ],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "typescript.tsdk": "node_modules/typescript/lib",
