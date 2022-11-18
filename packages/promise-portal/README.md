@@ -155,6 +155,20 @@ const onClick = async () => {
   const output = await portal() // only allow empty parameter
   ```
 
+  you can set a config to definePortal
+
+  ```ts
+  definePortal(Comp, {
+    // set a time gap before portal unmount,
+    // in general, it to wait for animation effect
+    unmountDelay: 1000,
+    // set promise-portal instance explicitly to render this portal
+    // not use the active instance internally
+    // of course, you can use `setActiveInstance` to set active instance
+    instance: promisePortalInstance,
+  })
+  ```
+
 ## Link
 
 [@filez/portal](https://github.com/lenovo-filez/portal)
