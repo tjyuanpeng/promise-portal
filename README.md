@@ -2,6 +2,10 @@
 
 let you use react portal in vue, and with promise
 
+## Online Demo
+
+[Demo on StackBlitz](https://stackblitz.com/github/tjyuanpeng/promise-portal-demo)
+
 ## packages
 
 - promise-portal
@@ -11,19 +15,6 @@ let you use react portal in vue, and with promise
 - playground
 
   > develop demo
-
-## Install
-
-```bash
-// pnpm
-pnpm add promise-portal -D
-
-// npm
-npm install promise-portal -D
-
-// yarn
-yarn add promise-portal --D
-```
 
 ## Develop
 
