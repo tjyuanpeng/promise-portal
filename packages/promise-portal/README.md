@@ -15,6 +15,60 @@ npm install promise-portal -D
 yarn add promise-portal --D
 ```
 
+## Relative Resourece
+
+- [react protal](https://reactjs.org/docs/portals.html)
+- [vue teleport](https://vuejs.org/guide/built-ins/teleport.html)
+
+## Why
+
+like element-plus, the modal is a vue component
+
+in development, we want use modal like a function
+
+no `show` property to control show/hide, gettting result is more explicit
+
+easier to control workflow, and easier to handle life-cycles
+
+### Before
+
+use as acomponent, with ref value to control visibility and life-cycles
+
+```ts
+<script setup lang="ts">
+import Comp from './components/name.vue'
+const show = ref(false)
+const onClick = () => {
+  show.value = true
+}
+const onClosed = () => {
+  show.value = false
+}
+</script>
+<template>
+  <el-button @click="onClick"> click to open the Dialog </el-button>
+  <Comp v-model="show" @closed="onClosed"> a dialog content </Comp>
+</template>
+```
+
+### After
+
+use as a normal promise-style function, so happy to develop
+
+```ts
+<script setup lang="ts">
+import Comp, { Input, Output } from './components/name.vue'
+const func = definePortal<Output, Input>(Comp)
+const onClick = async () => {
+  const data = await func()
+  console.log(data)
+}
+</script>
+<template>
+  <el-button @click="onClick"> click to open the Dialog </el-button>
+</template>
+```
+
 ## Use
 
 ### install in the entry file
@@ -171,6 +225,5 @@ const onClick = async () => {
 
 ## Link
 
-[@filez/portal](https://github.com/lenovo-filez/portal)
-
-[promise-modal](https://github.com/liruifengv/promise-modal)
+- [@filez/portal](https://github.com/lenovo-filez/portal)
+- [promise-modal](https://github.com/liruifengv/promise-modal)

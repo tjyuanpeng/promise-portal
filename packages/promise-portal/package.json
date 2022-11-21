@@ -1,7 +1,7 @@
 {
   "name": "promise-portal",
-  "version": "1.0.3",
-  "description": "a vite plugin to load svg icon for element-plus",
+  "version": "1.0.4",
+  "description": "let you use react portal in vue, and with promise",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
