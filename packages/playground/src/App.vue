@@ -10,7 +10,7 @@ const getA = definePortal<PlusAOutput>(PlusA)
 const getB = definePortal<PlusBOutput>(PlusB)
 
 const onBasic = async () => {
-  const data = await basic({ input: 'foo bar' })
+  const data = await basic({ input: 'foo bar.' })
   ElMessage(JSON.stringify(data))
 }
 
