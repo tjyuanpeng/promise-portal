@@ -2,25 +2,33 @@
 import { ref } from 'vue'
 import { usePortalContext } from 'promise-portal'
 
-export interface Output {
-  value: string | null
+export interface Input {
+  input: string
 }
 
-const { resolve } = usePortalContext<Output>()
-const value = ref('')
+export interface Output {
+  confirm: boolean
+}
+
+const props = defineProps<Input>()
+const { resolve, setUnmountDelay } = usePortalContext<Output>()
+setUnmountDelay(201)
+
 const show = ref(true)
 const onConfirm = () => {
-  resolve({ value: value.value })
+  show.value = false
+  resolve({ confirm: true })
 }
 const onClose = () => {
-  resolve({ value: null })
+  show.value = false
+  resolve({ confirm: false })
 }
 </script>
 <template>
-  <el-dialog v-model="show" title="Full Name" @closed="onClose">
+  <el-dialog v-model="show" title="Basic" @closed="onClose">
     <el-form>
-      <el-form-item label="enter a number">
-        <el-input v-model="value" />
+      <el-form-item label="input: ">
+        {{ props.input }}
       </el-form-item>
     </el-form>
     <template #footer>

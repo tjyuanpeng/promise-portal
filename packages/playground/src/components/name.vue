@@ -20,9 +20,11 @@ const middleName = ref('patrick')
 const fullName = computed(() => `${props.firstName} ${middleName.value} ${props.lastName}`)
 
 const onConfirm = () => {
+  show.value = false
   resolve({ confirm: true, fullName: fullName.value })
 }
 const onClose = () => {
+  show.value = false
   resolve({ confirm: false, fullName: '' })
 }
 </script>
