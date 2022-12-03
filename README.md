@@ -4,6 +4,8 @@ let you use react portal in vue, and with promise
 
 ## Online Demo
 
+[Demo on codesandbox](https://codesandbox.io/p/github/tjyuanpeng/promise-portal)
+
 [Demo on StackBlitz](https://stackblitz.com/github/tjyuanpeng/promise-portal-demo)
 
 ## packages
@@ -22,7 +24,7 @@ let you use react portal in vue, and with promise
 pnpm run dev
 ```
 
-then open `http://localhost:9001/`
+open `http://localhost:9001/`
 
 ## Build
 

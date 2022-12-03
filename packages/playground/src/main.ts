@@ -8,7 +8,7 @@ import App from './App.vue'
 const app = createApp(App)
 
 app.use(ElementPlus)
-app.use(createPromisePortal({ unmountDelay: 203 }))
+app.use(createPromisePortal())
 app.mount('#app')
 
 if (import.meta.env.DEV) {

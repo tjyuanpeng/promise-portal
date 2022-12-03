@@ -17,6 +17,8 @@ yarn add promise-portal --D
 
 ## Online Demo
 
+[Demo on codesandbox](https://codesandbox.io/p/github/tjyuanpeng/promise-portal)
+
 [Demo on StackBlitz](https://stackblitz.com/github/tjyuanpeng/promise-portal-demo)
 
 ## Relative Resourece
