@@ -5,9 +5,13 @@ export interface PortalContext<R> {
   reject: (reason?: any) => void
   el: HTMLDivElement
   vNode: VNode
+  setUnmountDelay: (unmountDelay: number) => void
 }
 
 export interface PromisePortal<R = any> {
+  defaultOptions: {
+    unmountDelay?: number
+  }
   app: App
   map: WeakMap<VNode, PortalContext<R>>
   install: (app: App) => void
@@ -26,8 +30,9 @@ export const getActiveInstance = () => activeInstance
 
 export const setActiveInstance = (instance: PromisePortal) => (activeInstance = instance)
 
-export const createPromisePortal = () => {
+export const createPromisePortal = (defaultOptions = {}) => {
   const instance: PromisePortal = {
+    defaultOptions,
     app: undefined as unknown as App,
     map: new WeakMap(),
     install(app: App) {
@@ -60,7 +65,7 @@ export const usePortalContext = <TOutput = any>() => {
 
 export const definePortal = <TOutput = any, TProps = any>(
   component: Component,
-  { instance, unmountDelay = 0 }: PortalOptions<TOutput> = {}
+  { instance, unmountDelay }: PortalOptions<TOutput> = {}
 ) => {
   const _instance =
     instance || (getCurrentInstance() && inject<PromisePortal<TOutput>>(promisePortalSymbol)) || activeInstance
@@ -70,12 +75,17 @@ export const definePortal = <TOutput = any, TProps = any>(
 
   return (props?: TProps, children?: unknown) => {
     let el = document.createElement('div')
+    el.setAttribute('data-promise-portal-container', '')
     document.body.appendChild(el)
+    let _delay = unmountDelay || _instance.defaultOptions?.unmountDelay
+    const setUnmountDelay = (delay: number) => {
+      _delay = delay
+    }
 
     let vNode: VNode
     const p = new Promise<TOutput>((resolve, reject) => {
       vNode = createVNode(component, props as any, children)
-      _instance.map.set(vNode, { resolve, reject, el, vNode })
+      _instance.map.set(vNode, { resolve, reject, el, vNode, setUnmountDelay })
       vNode.appContext = _instance.app._context
       render(vNode, el)
     })
@@ -88,9 +98,29 @@ export const definePortal = <TOutput = any, TProps = any>(
         }
         el = null as any
         vNode = null as any
-      }, unmountDelay)
+      }, _delay)
     })
 
     return p
   }
+}
+
+export const detectPromisePortalInstance = ({
+  style = 'position:fixed;top:0;right:0;text-align:right;line-height:1.3;color:red;z-index:9999;',
+  text = `Detected that the promise-portal instance has not been properly destroyed<br>Please make sure to call resolve/reject to release the instance correctly.`,
+} = {}) => {
+  const nodes = document.querySelectorAll('[data-promise-portal-container]')
+  if (nodes.length > 0) {
+    let el = document.querySelector('[data-promise-portal-detector]')
+    if (!el) {
+      el = document.createElement('div')
+      el.setAttribute('data-promise-portal-detector', '')
+      el.setAttribute('style', style)
+      el.innerHTML = text
+      document.body.appendChild(el)
+    }
+  } else {
+    document.querySelector('[data-promise-portal-detector]')?.remove()
+  }
+  setTimeout(detectPromisePortalInstance, 200)
 }

@@ -16,10 +16,10 @@ const onClose = () => {
 }
 </script>
 <template>
-  <el-dialog :model-value="true" title="Full Name" @closed="onClose">
+  <el-dialog :model-value="true" title="Nested B" width="500px" @closed="onClose">
     <el-form>
-      <el-form-item label="enter a number">
-        <el-input v-model="value" />
+      <el-form-item label="enter another number">
+        <el-input v-model="value" autofocus />
       </el-form-item>
     </el-form>
     <template #footer>

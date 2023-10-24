@@ -8,6 +8,7 @@ export interface Output {
 
 const { resolve } = usePortalContext<Output>()
 const value = ref('')
+const show = ref(true)
 const onConfirm = () => {
   resolve({ value: value.value })
 }
@@ -16,9 +17,9 @@ const onClose = () => {
 }
 </script>
 <template>
-  <el-dialog :model-value="true" title="Full Name" @closed="onClose">
+  <el-dialog v-model="show" title="Flow A" @closed="onClose">
     <el-form>
-      <el-form-item label="enter another number">
+      <el-form-item label="enter a number">
         <el-input v-model="value" />
       </el-form-item>
     </el-form>

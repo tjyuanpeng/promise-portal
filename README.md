@@ -2,9 +2,13 @@
 
 let you use react portal in vue, and with promise
 
+## Document
+
+[Document](./packages/promise-portal/README.md)
+
 ## Online Demo
 
-[Demo on StackBlitz](https://stackblitz.com/github/tjyuanpeng/promise-portal-demo)
+[Demo on codesandbox](https://codesandbox.io/p/github/tjyuanpeng/promise-portal)
 
 ## packages
 
@@ -22,7 +26,7 @@ let you use react portal in vue, and with promise
 pnpm run dev
 ```
 
-then open `http://localhost:9001/`
+open `http://localhost:9001/`
 
 ## Build
 
