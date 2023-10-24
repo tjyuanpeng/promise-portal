@@ -19,8 +19,6 @@ yarn add promise-portal --D
 
 [Demo on codesandbox](https://codesandbox.io/p/github/tjyuanpeng/promise-portal)
 
-[Demo on StackBlitz](https://stackblitz.com/github/tjyuanpeng/promise-portal-demo)
-
 ## Relative Resourece
 
 - [react protal](https://reactjs.org/docs/portals.html)
@@ -81,6 +79,7 @@ const onClick = async () => {
 
 ```ts
 // ./main.ts
+import { createApp } from 'vue'
 import { createPromisePortal } from 'promise-portal'
 
 const app = createApp(App)
@@ -120,11 +119,19 @@ const onClick = async () => {
 
 - createPromisePortal
 
-  create promise-portal instance
+  create promise-portal instance, set to vue instance
 
   ```ts
   const instance = createPromisePortal()
-  app.use(instance) // vue instance
+  app.use(instance)
+  ```
+
+  you can set default config to instance
+
+  ```ts
+  const instance = createPromisePortal({
+    unmountDelay: 100,
+  })
   ```
 
 - getActiveInstance
@@ -148,11 +155,12 @@ const onClick = async () => {
   a vue composition api, use in portal component to get context of portal
 
   ```ts
-  const { resolve, reject, el, vNode } = usePortalContext()
+  const { resolve, reject, el, vNode, setUnmountDelay } = usePortalContext()
   // resolve: promise resolve handler
   // reject: promise reject handler
   // el: portal base element, injecting to body element
   // vNode: portal base vue vnode
+  // setUnmountDelay: set unmount delay to this portal
   ```
 
   you can use typescript generic types
@@ -226,6 +234,28 @@ const onClick = async () => {
     // not use the active instance internally
     // of course, you can use `setActiveInstance` to set active instance
     instance: promisePortalInstance,
+  })
+  ```
+
+- detectPromisePortalInstance
+
+  Check if the instance has been properly destroyed
+
+  ```ts
+  // main.ts
+  if (import.meta.env.DEV) {
+    detectPromisePortalInstance()
+  }
+  ```
+
+  You can pass in other values to customize it.
+
+  ```ts
+  // default value
+  detectPromisePortalInstance({
+    style = 'position:fixed;top:0;right:0;text-align:right;line-height:1.3;color:red;z-index:9999;',
+    text = `Detected that the promise-portal instance has not been properly destroyed<br>
+            Please make sure to call resolve/reject to release the instance correctly.`,
   })
   ```
 

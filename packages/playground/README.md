@@ -2,4 +2,4 @@
 
 ## Online Demo
 
-[Demo on StackBlitz](https://stackblitz.com/github/tjyuanpeng/promise-portal-demo)
+[Demo on codesandbox](https://codesandbox.io/p/github/tjyuanpeng/promise-portal)

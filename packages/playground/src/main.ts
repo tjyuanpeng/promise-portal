@@ -14,4 +14,3 @@ app.mount('#app')
 if (import.meta.env.DEV) {
   detectPromisePortalInstance()
 }
-console.log(import.meta.env.DEV)

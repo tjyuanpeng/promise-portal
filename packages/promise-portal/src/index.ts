@@ -91,7 +91,6 @@ export const definePortal = <TOutput = any, TProps = any>(
     })
 
     p.finally(() => {
-      console.log('delay', _delay)
       setTimeout(() => {
         if (el) {
           render(null, el)
@@ -107,11 +106,10 @@ export const definePortal = <TOutput = any, TProps = any>(
 }
 
 export const detectPromisePortalInstance = ({
-  selector = '[data-promise-portal-container]',
   style = 'position:fixed;top:0;right:0;text-align:right;line-height:1.3;color:red;z-index:9999;',
-  text = `检测到promise-portal实例未被正确销毁<br>请正确调用resolve/reject释放实例`,
+  text = `Detected that the promise-portal instance has not been properly destroyed<br>Please make sure to call resolve/reject to release the instance correctly.`,
 } = {}) => {
-  const nodes = document.querySelectorAll(selector)
+  const nodes = document.querySelectorAll('[data-promise-portal-container]')
   if (nodes.length > 0) {
     let el = document.querySelector('[data-promise-portal-detector]')
     if (!el) {
