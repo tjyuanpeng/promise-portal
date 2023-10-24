@@ -1,6 +1,6 @@
 {
   "name": "promise-portal",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "let you use react portal in vue, and with promise",
   "type": "module",
   "main": "dist/index.cjs",
