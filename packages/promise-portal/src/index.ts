@@ -105,10 +105,16 @@ export const definePortal = <TOutput = any, TProps = any>(
   }
 }
 
-export const detectPromisePortalInstance = ({
-  style = 'position:fixed;top:0;right:0;text-align:right;line-height:1.3;color:red;z-index:9999;',
-  text = `Detected that the promise-portal instance has not been properly destroyed<br>Please make sure to call resolve/reject to release the instance correctly.`,
-} = {}) => {
+export interface DetectPromisePortalInstanceConfig {
+  style?: string
+  text?: string
+}
+
+export const detectPromisePortalInstance = (config: DetectPromisePortalInstanceConfig = {}) => {
+  const {
+    style = 'position:fixed;top:0;right:0;text-align:right;line-height:1.3;color:red;z-index:9999;',
+    text = `Detected that the promise-portal instance has not been properly destroyed<br>Please make sure to call resolve/reject to release the instance correctly.`,
+  } = config
   const nodes = document.querySelectorAll('[data-promise-portal-container]')
   if (nodes.length > 0) {
     let el = document.querySelector('[data-promise-portal-detector]')
@@ -122,5 +128,5 @@ export const detectPromisePortalInstance = ({
   } else {
     document.querySelector('[data-promise-portal-detector]')?.remove()
   }
-  setTimeout(detectPromisePortalInstance, 200)
+  setTimeout(() => detectPromisePortalInstance(config), 200)
 }

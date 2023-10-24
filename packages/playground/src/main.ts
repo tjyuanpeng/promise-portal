@@ -12,5 +12,7 @@ app.use(createPromisePortal())
 app.mount('#app')
 
 if (import.meta.env.DEV) {
-  detectPromisePortalInstance()
+  detectPromisePortalInstance({
+    text: '检测到未释放的PromisePortal实例',
+  })
 }
