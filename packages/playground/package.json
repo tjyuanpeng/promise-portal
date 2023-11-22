@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build"
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.2.0",
@@ -13,8 +14,11 @@
     "vite": "^3.0.9"
   },
   "dependencies": {
-    "element-plus": "^2.2.20",
-    "vue": "^3.2.44",
-    "promise-portal": "workspace:*"
+    "ant-design-vue": "^4.0.6",
+    "dayjs": "^1.11.10",
+    "element-plus": "^2.4.2",
+    "promise-portal": "workspace:*",
+    "vue": "^3.3.8",
+    "vue-router": "^4.2.5"
   }
 }

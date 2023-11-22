@@ -7,11 +7,10 @@ export interface Output {
   value: string | null
 }
 
-const getNestedB = definePortal<NestedBOutput>(NestedB)
+const [getNestedB] = definePortal<NestedBOutput>(NestedB)
 
 const { resolve } = usePortalContext<Output>()
 const value = ref('')
-const show = ref(true)
 const onConfirm = async () => {
   const b = await getNestedB()
   if (b.value === null) {
@@ -25,7 +24,7 @@ const onClose = () => {
 }
 </script>
 <template>
-  <el-dialog v-model="show" title="Nested A" @closed="onClose">
+  <el-dialog :model-value="true" title="Nested A" @closed="onClose">
     <el-form>
       <el-form-item label="enter a number22">
         <el-input v-model="value" autofocus />

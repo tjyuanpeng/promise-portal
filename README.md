@@ -1,6 +1,6 @@
 # promise-portal
 
-let you use react portal in vue, and with promise
+use component like a promisd-like function
 
 ## Document
 
@@ -8,28 +8,23 @@ let you use react portal in vue, and with promise
 
 ## Online Demo
 
-[Demo on codesandbox](https://codesandbox.io/p/github/tjyuanpeng/promise-portal)
+[https://codesandbox.io/p/github/tjyuanpeng/promise-portal](https://codesandbox.io/p/github/tjyuanpeng/promise-portal)
 
-## packages
+## Packages Info
 
-- promise-portal
-
-  > source code
-
-- playground
-
-  > develop demo
+- promise-portal: source code
+- playground: demos & test cases
 
 ## Develop
 
 ```bash
-pnpm run dev
+pnpm dev
 ```
 
-open `http://localhost:9001/`
+open `http://localhost:9001/` to start
 
 ## Build
 
 ```bash
-pnpm run build
+pnpm build
 ```
