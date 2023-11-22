@@ -126,7 +126,7 @@ const onClick = async () => {
   app.use(instance)
   ```
 
-  you can set default config to instance
+  you can set default options to instance
 
   ```ts
   const instance = createPromisePortal({
@@ -223,7 +223,7 @@ const onClick = async () => {
   const output = await portal() // only allow empty parameter
   ```
 
-  you can set a config to definePortal
+  you can set a options to definePortal
 
   ```ts
   definePortal(Comp, {
