@@ -1,7 +1,7 @@
 {
   "name": "promise-portal",
   "version": "1.1.0",
-  "description": "let you use react portal in vue, and with promise",
+  "description": "use component like a promisd-like function",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",

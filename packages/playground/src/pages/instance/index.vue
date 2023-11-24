@@ -14,7 +14,7 @@ const onBasic = async () => {
 }
 const onBasic2 = async () => {
   const { pInstance, app } = createInstance({
-    unmountDelay: 1000,
+    unmountDelay: 2000,
   })
   const [showBasicModal] = definePortal<BasicOutput, BasicInput>(Basic, {
     instance: pInstance,

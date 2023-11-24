@@ -10,7 +10,7 @@ export interface Output {
 }
 
 const props = defineProps<Input>()
-const { show, resolve } = usePortalContext<Output>({ unmountDelay: 100 })
+const { show, resolve } = usePortalContext<Output>()
 const onConfirm = () => {
   show.value = false
   resolve({ confirm: true })

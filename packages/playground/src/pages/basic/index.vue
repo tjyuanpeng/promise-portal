@@ -48,7 +48,7 @@ const onDelay = async () => {
       <el-space direction="vertical" alignment="flex-start">
         <el-button @click="onBasic">Basic usage Case</el-button>
         <el-button @click="onDelay">
-          set unmountDelay to delay the call of unmount, preserve the gap form modal hidding animation.
+          set unmountDelay to delay the call of unmount, preserve the gap to modal hidding animation.
         </el-button>
         <el-button @click="onFlow">Sequential Call Case</el-button>
         <el-button @click="onNested">Nested Call Case</el-button>
