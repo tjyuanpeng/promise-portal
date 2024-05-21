@@ -1,6 +1,6 @@
 {
   "name": "promise-portal",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "use component as a promisd-like function",
   "type": "module",
   "main": "dist/index.cjs",
