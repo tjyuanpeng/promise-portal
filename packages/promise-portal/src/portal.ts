@@ -2,6 +2,8 @@ import { App, Component, VNode, createVNode, render, inject, getCurrentInstance,
 
 const promisePortalSymbol = process.env.NODE_ENV !== 'production' ? Symbol('promise-portal') : Symbol()
 
+export const version = `1.2.0`
+
 export interface Options {
   unmountDelay?: number
   initialShowValue?: boolean
@@ -20,6 +22,7 @@ export interface Instance<R = any> {
   defaultOptions: Options
   app: App
   map: WeakMap<VNode, Context<R>>
+  provides: any
   install: (app: App) => void
 }
 
@@ -34,6 +37,7 @@ export const createPromisePortal = (defaultOptions: Options = {}) => {
     defaultOptions,
     app: undefined as unknown as App,
     map: new WeakMap(),
+    provides: undefined,
     install(app: App) {
       instance.app = app
       setActiveInstance(instance)
@@ -100,7 +104,7 @@ export const definePortal = <TOutput = any, TProps = any>(
       const ac = appContext ?? instance.app._context
       vnode.appContext = Object.create(ac, {
         provides: {
-          value: contextHolderProvides ?? ac.provides,
+          value: contextHolderProvides ?? instance.provides ?? ac.provides,
         },
       })
       render(vnode, el)
@@ -116,3 +120,15 @@ export const definePortal = <TOutput = any, TProps = any>(
   }
   return [portal, ContextHolder]
 }
+
+export const ContextProvider = defineComponent({
+  name: 'PromisePortalContextProvider',
+  setup(_props, { slots }) {
+    const p = (getCurrentInstance() as any)?.provides
+    const instance = getActiveInstance()
+    if (p && instance) {
+      instance.provides = p
+    }
+    return () => slots.default?.()
+  },
+})
