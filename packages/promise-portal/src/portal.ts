@@ -2,7 +2,7 @@ import { App, Component, VNode, createVNode, render, inject, getCurrentInstance,
 
 const promisePortalSymbol = process.env.NODE_ENV !== 'production' ? Symbol('promise-portal') : Symbol()
 
-export const version = `1.2.0`
+export const version = `1.2.1`
 
 export interface Options {
   unmountDelay?: number
