@@ -1,6 +1,6 @@
 # promise-portal
 
-use component like a promisd-like function
+use component as a promisd-like function
 
 ## Installation
 
@@ -87,11 +87,28 @@ app.use(
 )
 ```
 
+### use `ContextProvider` to set context globally
+
+```vue
+<!-- ./App.vue -->
+<script setup lang="ts">
+import locale from 'ant-design-vue/es/locale/zh_CN'
+import { ContextProvider } from 'promise-portal'
+</script>
+<template>
+  <a-config-provider :locale="locale">
+    <ContextProvider>
+      <router-view></router-view>
+    </ContextProvider>
+  </a-config-provider>
+</template>
+```
+
 ### in component, use `usePortalContext` to use portal context
 
 ```vue
+<!-- ./components/comp.vue -->
 <script setup lang="ts">
-// ./components/comp.vue
 import { usePortalContext } from 'promise-portal'
 export interface Output {
   confirm: boolean
@@ -163,6 +180,24 @@ set active promise-portal instance
 
 ```ts
 setActiveInstance(instance)
+```
+
+### ContextProvider
+
+a component to set context globally
+
+```vue
+<script setup lang="ts">
+import locale from 'ant-design-vue/es/locale/zh_CN'
+import { ContextProvider } from 'promise-portal'
+</script>
+<template>
+  <a-config-provider :locale="locale">
+    <ContextProvider>
+      <router-view></router-view>
+    </ContextProvider>
+  </a-config-provider>
+</template>
 ```
 
 ### usePortalContext

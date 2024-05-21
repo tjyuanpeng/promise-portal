@@ -1,6 +1,6 @@
 # promise-portal
 
-use component like a promisd-like function
+use component as a promisd-like function
 
 ## Document
 
