@@ -6,6 +6,8 @@ use component as a promisd-like function
 
 [Document](./packages/promise-portal/README.md)
 
+[中文文档](./packages/promise-portal/README-cn.md)
+
 ## Online Demo
 
 [https://codesandbox.io/p/github/tjyuanpeng/promise-portal](https://codesandbox.io/p/github/tjyuanpeng/promise-portal)

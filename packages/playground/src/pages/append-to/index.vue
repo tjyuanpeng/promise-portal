@@ -2,38 +2,34 @@
 import type { Input as BasicInput, Output as BasicOutput } from './components/basic.vue'
 import { definePortal } from 'promise-portal'
 import Basic from './components/basic.vue'
-import createInstance from './components/create-instance'
 
 const onBasic = async () => {
-  const { pInstance, app } = createInstance()
   const [showBasicModal] = definePortal<BasicOutput, BasicInput>(Basic, {
-    instance: pInstance,
+    appendTo: 'body',
   })
   const result = await showBasicModal({ input: 'basic usage input value' })
-  app.unmount()
   console.log(result)
 }
 const onBasic2 = async () => {
-  const { pInstance, app } = createInstance({
-    unmountDelay: 2000,
-  })
   const [showBasicModal] = definePortal<BasicOutput, BasicInput>(Basic, {
-    instance: pInstance,
+    appendTo: '#custom-container',
   })
   const result = await showBasicModal({ input: 'basic usage input value' })
-  app.unmount()
   console.log(result)
 }
+const customContainerRef = ref()
 const onBasic3 = async () => {
-  const { pInstance, app } = createInstance({
-    initialShowValue: false,
-  })
   const [showBasicModal] = definePortal<BasicOutput, BasicInput>(Basic, {
-    instance: pInstance,
-    initialShowValue: true,
+    appendTo: customContainerRef.value,
   })
   const result = await showBasicModal({ input: 'basic usage input value' })
-  app.unmount()
+  console.log(result)
+}
+const onBasic4 = async () => {
+  const [showBasicModal] = definePortal<BasicOutput, BasicInput>(Basic, {
+    appendTo: '#error',
+  })
+  const result = await showBasicModal({ input: 'basic usage input value' })
   console.log(result)
 }
 </script>
@@ -43,15 +39,33 @@ const onBasic3 = async () => {
     <el-card>
       <el-space direction="vertical" alignment="flex-start">
         <el-button @click="onBasic">
-          define portal with custom promise-portal instance
+          append portal container to body
         </el-button>
         <el-button @click="onBasic2">
-          define portal with unmountDelay option
+          append portal container to a custom selector
         </el-button>
         <el-button @click="onBasic3">
-          define portal with initialShowValue option
+          append portal container to a custom element
+        </el-button>
+        <el-button @click="onBasic4">
+          set error value to append
         </el-button>
       </el-space>
     </el-card>
+    <div id="custom-container" ref="customContainerRef">
+      #custom-container
+    </div>
   </div>
 </template>
+
+<style scoped>
+#custom-container {
+  margin-top: 12px;
+  height: 50px;
+  border: 1px solid #ddd;
+  color: #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

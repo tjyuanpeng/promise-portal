@@ -28,7 +28,7 @@ const onClose = () => {
 <template>
   <el-dialog :model-value="true" title="Nested A" @closed="onClose">
     <el-form>
-      <el-form-item label="enter a number22">
+      <el-form-item label="enter a number">
         <el-input v-model="value" autofocus />
       </el-form-item>
     </el-form>

@@ -1,32 +1,34 @@
 # promise-portal
 
-use component as a promisd-like function
+像调用函数一样使用组件
 
-## Installation
+## 安装
 
 ```bash
 pnpm add promise-portal
 ```
 
-## Online Demo
+## 在线示例
 
 [https://codesandbox.io/p/github/tjyuanpeng/promise-portal](https://codesandbox.io/p/github/tjyuanpeng/promise-portal)
 
-## Motivation
+## 设计动机
 
-like element-plus, the modal is a vue component
+类似 element-plus 的实现方式，模态框（Modal）本质是一个 Vue 组件。
 
-in development, we want use modal like a function
+在开发过程中，我们希望能像调用函数一样使用模态框：
 
-no `show` property to control show/hide, gettting result is more explicit
+无需通过 show 这类属性控制显隐状态
 
-easier to control workflow, and easier to handle life-cycles
+结果获取方式更直观
 
-so you can use Promise-Portal to save your life-time
+流程控制更简单，生命周期管理更便捷
 
-### before
+因此，你可以使用 Promise-Portal 来提升开发效率。
 
-use as a component, with ref value to control visibility and life-cycles
+### 改造前
+
+作为组件使用，通过 ref 变量控制显隐状态和生命周期：
 
 ```vue
 <script setup lang="ts">
@@ -51,9 +53,9 @@ const onClosed = () => {
 </template>
 ```
 
-### after
+### 改造后
 
-use as a normal promise-style function, so happy to develop
+作为普通的 Promise 风格函数使用，开发体验更友好：
 
 ```vue
 <script setup lang="ts">
@@ -73,9 +75,9 @@ const onClick = async () => {
 </template>
 ```
 
-## Use Case
+## 使用场景
 
-### create promise-portal instance in the entry file
+### 在入口文件中创建 promise-portal 实例
 
 ```ts
 // ./main.ts
@@ -86,7 +88,7 @@ const app = createApp(App)
 app.use(createPromisePortal())
 ```
 
-### use `ContextProvider` to set context globally
+### 使用 ContextProvider 设置全局上下文
 
 ```vue
 <!-- ./App.vue -->
@@ -104,7 +106,7 @@ import { ContextProvider } from 'promise-portal'
 </template>
 ```
 
-### in component, use `usePortalContext` to use portal context
+### 在组件中使用 usePortalContext 获取上下文
 
 ```vue
 <!-- ./components/comp.vue -->
@@ -131,7 +133,7 @@ const onCancel = () => {
 </template>
 ```
 
-### define portal in anywhere, then use it like a promise-style function
+### 在任意位置定义 portal，然后像 Promise 函数一样使用
 
 ```ts
 // ./App.vue
@@ -147,11 +149,11 @@ const onClick = async () => {
 }
 ```
 
-## API Reference
+## API 参考
 
 ### createPromisePortal
 
-create promise-portal instance, set to vue instance
+创建 promise-portal 实例，并挂载到 Vue 实例上
 
 ```ts
 const instance = createPromisePortal()
@@ -160,7 +162,7 @@ app.use(instance)
 
 ### ContextProvider
 
-a component to set context globally
+用于全局设置上下文的组件
 
 ```vue
 <script setup lang="ts">
@@ -179,29 +181,29 @@ import { ContextProvider } from 'promise-portal'
 
 ### usePortalContext
 
-a vue composition api, use in portal component to get context of portal
+一个 Vue 组合式 API，用于在 portal 组件中获取上下文
 
 ```ts
 const { resolve } = usePortalContext()
 
-// detail
+// 完整参数说明
 const {
-  resolve, // promise resolve handler
-  reject, // promise reject handler
-  el, // portal base element, injected into 'appendTo' element
-  vnode, // portal base vue vnode
-  unmountDelay, // Ref for portal unmount delay (ms)
-  show, // Ref for modal display state (controlled by portal)
+  resolve, // Promise 解析处理器
+  reject, // Promise 拒绝处理器
+  el, // 门户基础元素，会被注入到 'appendTo' 指定的元素中
+  vnode, // 门户基础 Vue 虚拟节点
+  unmountDelay, // 门户卸载延迟时间的响应式变量（毫秒）
+  show, // 模态框显示状态的响应式变量（由门户控制）
 } = usePortalContext({
-  // Unmount delay (ms) for portal, usually for animation effects
+  // 门户卸载延迟时间（毫秒），通常用于处理动画效果
   unmountDelay: 200,
 
-  // Initial value for the show ref (defaults to true)
+  // show 响应式变量的初始值（默认值为 true）
   initialShowValue: true,
 })
 ```
 
-you can use typescript generic types to promise fulfilled result
+你可以通过 TypeScript 泛型指定 Promise 成功回调的返回结果类型：
 
 ```ts
 export interface Output {
@@ -213,11 +215,11 @@ resolve({
 })
 ```
 
-you can use `show` to control modal component
+你可以使用 show 变量控制模态框组件的显隐：
 
-before `unmount`, `show.value = false` will be setted
+在执行卸载逻辑前，show.value 会被设置为 false；
 
-use `initialShowValue` to set inital value, default inital value is `true`
+可通过 initialShowValue 设置初始值，默认初始值为 true。
 
 ```vue
 <script setup lang="ts">
@@ -231,7 +233,7 @@ const { resolve, show } = usePortalContext<Output>({ initialShowValue: true })
 
 ### definePortal
 
-define a portal, return a portal function
+定义一个 portal，返回一个 portal 函数
 
 ```ts
 import Comp from './component.vue'
@@ -240,7 +242,9 @@ const portalFunc = definePortal(Comp)
 portalFunc()
 ```
 
-you can define generic types to check input object and output object
+### 泛型参数
+
+你可以通过泛型参数指定 portal 函数的输入参数类型和输出结果类型：
 
 ```ts
 // component.vue
@@ -266,7 +270,9 @@ const output = await portal({
 })
 ```
 
-define a portal with empty parameter
+### 定义无参数 portal
+
+你可以定义一个无参数的 portal，只需要将泛型参数设置为 void：
 
 ```ts
 // component.vue
@@ -283,24 +289,26 @@ const portal = definePortal<Output, void>(Comp)
 const output = await portal() // only allow empty parameter
 ```
 
-you can set a options to definePortal
+### 定义 portal 选项
+
+你可以通过第二个参数传递选项来定义 portal：
 
 ```ts
 definePortal(Comp, {
-  // Unmount delay (ms) for portal, usually for animation effects
+  // 门户卸载延迟时间（毫秒），通常用于处理动画效果
   unmountDelay: 200,
 
-  // Initial value for the show ref (defaults to true)
+  // show 响应式变量的初始值（默认值为 true）
   initialShowValue: true,
 
-  // a dom element or CSS selector to append the portal element to (defaults to document.body)
+  // 门户元素要追加到的 DOM 元素或 CSS 选择器（默认值为 document.body）
   appendTo: document.body,
 })
 ```
 
-### detectPromisePortalInstance
+### 检测未释放的 promise-portal 实例
 
-detect whether the instance has been properly destroyed
+检测是否有未正确释放的 promise-portal 实例
 
 ```ts
 // main.ts
@@ -309,14 +317,14 @@ if (import.meta.env.DEV) {
 }
 ```
 
-the return value is a function to stop detecting
+检测未释放的 promise-portal 实例时，返回一个函数，用于停止检测
 
 ```ts
 const stopHandler = detectPromisePortalInstance()
-stopHandler() // stop detecting
+stopHandler() // 停止检测
 ```
 
-You can pass in other values to customize it.
+你可以通过传递选项来自定义检测提示信息
 
 ```ts
 detectPromisePortalInstance({
@@ -325,7 +333,7 @@ detectPromisePortalInstance({
 })
 ```
 
-# Acknowledgements
+# 致谢
 
 - [react portal](https://reactjs.org/docs/portals.html)
 - [vue teleport](https://vuejs.org/guide/built-ins/teleport.html)

@@ -13,4 +13,5 @@ if (import.meta.env.DEV) {
   detectPromisePortalInstance({
     text: 'Detected unreleased promise-portal instance.',
   })
+  window.addEventListener('unhandledrejection', e => ElMessage.error(e.reason?.message || 'unhandled rejected promise error'))
 }
