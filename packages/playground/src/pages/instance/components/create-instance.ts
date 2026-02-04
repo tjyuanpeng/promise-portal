@@ -1,6 +1,7 @@
-import { h, createApp } from 'vue'
+import type { Options } from 'promise-portal'
 import ElementPlus from 'element-plus'
-import { createPromisePortal, Options } from 'promise-portal'
+import { createPromisePortal } from 'promise-portal'
+import { createApp, h } from 'vue'
 
 export default (defaultOptions?: Options) => {
   const pInstance = createPromisePortal(defaultOptions)

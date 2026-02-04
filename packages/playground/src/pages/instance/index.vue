@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { Input as BasicInput, Output as BasicOutput } from './components/basic.vue'
 import { definePortal } from 'promise-portal'
-import Basic, { Input as BasicInput, Output as BasicOutput } from './basic.vue'
-import createInstance from './create-instance'
+import Basic from './components/basic.vue'
+import createInstance from './components/create-instance'
 
 const onBasic = async () => {
   const { pInstance, app } = createInstance()
@@ -36,13 +37,20 @@ const onBasic3 = async () => {
   console.log(result)
 }
 </script>
+
 <template>
   <div class="main">
     <el-card>
       <el-space direction="vertical" alignment="flex-start">
-        <el-button @click="onBasic">define portal with custom promise-portal instance</el-button>
-        <el-button @click="onBasic2">define portal with unmountDelay option</el-button>
-        <el-button @click="onBasic3">define portal with initialShowValue option</el-button>
+        <el-button @click="onBasic">
+          define portal with custom promise-portal instance
+        </el-button>
+        <el-button @click="onBasic2">
+          define portal with unmountDelay option
+        </el-button>
+        <el-button @click="onBasic3">
+          define portal with initialShowValue option
+        </el-button>
       </el-space>
     </el-card>
   </div>

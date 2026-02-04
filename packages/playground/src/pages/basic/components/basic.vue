@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { usePortalContext } from 'promise-portal'
+import { ref } from 'vue'
 
 export interface Input {
   input: string
@@ -23,6 +23,7 @@ const onClose = () => {
   resolve({ confirm: false })
 }
 </script>
+
 <template>
   <el-dialog v-model="show" title="Basic" @closed="onClose">
     <el-form>
@@ -31,8 +32,12 @@ const onClose = () => {
       </el-form-item>
     </el-form>
     <template #footer>
-      <el-button @click="onClose">Cancel</el-button>
-      <el-button type="primary" @click="onConfirm">Confirm</el-button>
+      <el-button @click="onClose">
+        Cancel
+      </el-button>
+      <el-button type="primary" @click="onConfirm">
+        Confirm
+      </el-button>
     </template>
   </el-dialog>
 </template>

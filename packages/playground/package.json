@@ -1,24 +1,29 @@
 {
-  "name": "@promise-portal/playground",
-  "private": true,
+  "name": "play",
   "type": "module",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "typecheck": "vue-tsc -b --noEmit",
+    "lint": "eslint .",
     "preview": "vite preview"
   },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^3.2.0",
-    "@vitejs/plugin-vue-jsx": "^2.1.1",
-    "typescript": "^4.8.2",
-    "vite": "^3.0.9"
-  },
   "dependencies": {
-    "ant-design-vue": "^4.0.6",
-    "dayjs": "^1.11.10",
-    "element-plus": "^2.4.2",
+    "ant-design-vue": "catalog:",
+    "dayjs": "catalog:",
+    "element-plus": "catalog:",
     "promise-portal": "workspace:*",
-    "vue": "^3.3.8",
-    "vue-router": "^4.2.5"
+    "vite-plugin-pages": "catalog:",
+    "vue": "catalog:",
+    "vue-router": "catalog:"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "catalog:",
+    "@vitejs/plugin-vue-jsx": "catalog:",
+    "unplugin-auto-import": "catalog:",
+    "unplugin-vue-components": "catalog:",
+    "vite": "catalog:",
+    "vue-tsc": "catalog:"
   }
 }

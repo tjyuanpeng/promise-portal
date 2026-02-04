@@ -14,11 +14,6 @@
       "preview": {
         "port": 9001
       }
-    },
-    "publish": {
-      "name": "publish",
-      "command": "pnpm publish",
-      "runAtStart": false
     }
   }
 }

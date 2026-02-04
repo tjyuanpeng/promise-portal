@@ -23,12 +23,15 @@ const onClose = () => {
   resolve({ confirm: false })
 }
 </script>
+
 <template>
   <a-modal v-model:open="show" title="antdv modal" width="800px" @cancel="onClose">
     <a-date-picker />
     <a-table :data-source="[]" :columns="columns" />
     <template #footer>
-      <a-button @click="onClose">close</a-button>
+      <a-button @click="onClose">
+        close
+      </a-button>
     </template>
   </a-modal>
 </template>

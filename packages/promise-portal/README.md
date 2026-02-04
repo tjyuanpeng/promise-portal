@@ -38,6 +38,7 @@ use as a component, with ref value to control visibility and life-cycles
 ```vue
 <script setup lang="ts">
 import Comp from './components/name.vue'
+
 const show = ref(false)
 const onClick = () => {
   show.value = true
@@ -46,9 +47,14 @@ const onClosed = () => {
   show.value = false
 }
 </script>
+
 <template>
-  <el-button @click="onClick"> click to open the Dialog </el-button>
-  <Comp v-model="show" @closed="onClosed"> a dialog content </Comp>
+  <el-button @click="onClick">
+    click to open the Dialog
+  </el-button>
+  <Comp v-model="show" @closed="onClosed">
+    a dialog content
+  </Comp>
 </template>
 ```
 
@@ -59,14 +65,18 @@ use as a normal promise-style function, so happy to develop
 ```vue
 <script setup lang="ts">
 import Comp from './components/name.vue'
+
 const func = definePortal(Comp)
 const onClick = async () => {
   const data = await func()
   console.log(data)
 }
 </script>
+
 <template>
-  <el-button @click="onClick"> open the Dialog </el-button>
+  <el-button @click="onClick">
+    open the Dialog
+  </el-button>
 </template>
 ```
 
@@ -75,9 +85,9 @@ const onClick = async () => {
 ### create promise-portal instance in the entry file
 
 ```ts
+import { createPromisePortal } from 'promise-portal'
 // ./main.ts
 import { createApp } from 'vue'
-import { createPromisePortal } from 'promise-portal'
 
 const app = createApp(App)
 app.use(
@@ -95,10 +105,11 @@ app.use(
 import locale from 'ant-design-vue/es/locale/zh_CN'
 import { ContextProvider } from 'promise-portal'
 </script>
+
 <template>
   <a-config-provider :locale="locale">
     <ContextProvider>
-      <router-view></router-view>
+      <router-view />
     </ContextProvider>
   </a-config-provider>
 </template>
@@ -110,6 +121,7 @@ import { ContextProvider } from 'promise-portal'
 <!-- ./components/comp.vue -->
 <script setup lang="ts">
 import { usePortalContext } from 'promise-portal'
+
 export interface Output {
   confirm: boolean
 }
@@ -122,8 +134,11 @@ const onCancel = () => {
   resolve({ confirm: false })
 }
 </script>
+
 <template>
-  <a-modal v-model:open="show" @cancel="resolve">{{ props.input }}</a-modal>
+  <a-modal v-model:open="show" @cancel="resolve">
+    {{ props.input }}
+  </a-modal>
 </template>
 ```
 
@@ -133,6 +148,7 @@ const onCancel = () => {
 // ./App.vue
 import { definePortal } from 'promise-portal'
 import Comp, { Input, Output } from './components/comp.vue'
+
 const [func] = definePortal<Output, Input>(Comp)
 const onClick = async () => {
   const result = await func({
@@ -191,10 +207,11 @@ a component to set context globally
 import locale from 'ant-design-vue/es/locale/zh_CN'
 import { ContextProvider } from 'promise-portal'
 </script>
+
 <template>
   <a-config-provider :locale="locale">
     <ContextProvider>
-      <router-view></router-view>
+      <router-view />
     </ContextProvider>
   </a-config-provider>
 </template>
@@ -247,8 +264,9 @@ use `initialShowValue` to set inital value, default inital value is `true`
 <script setup lang="ts">
 const { resolve, show } = usePortalContext<Output>({ initialShowValue: true })
 </script>
+
 <template>
-  <a-modal v-model:open="show" @cancel="resolve"></a-modal>
+  <a-modal v-model:open="show" @cancel="resolve" />
 </template>
 ```
 
@@ -258,6 +276,7 @@ define a portal, return a portal function
 
 ```ts
 import Comp from './component.vue'
+
 const portalFunc = definePortal(Comp)
 portalFunc()
 ```
@@ -266,6 +285,9 @@ you can define generic types to check input object and output object
 
 ```ts
 // component.vue
+// App.vue
+import Comp, { Input, Output } from './component.vue'
+
 export interface Input {
   firstName: string
   lastName: string
@@ -278,9 +300,6 @@ export interface Output {
 
 const props = defineProps<Input>()
 const { resolve } = usePortalContext<Output>()
-
-// App.vue
-import Comp, { Input, Output } from './component.vue'
 const portal = definePortal<Output, Input>(Comp)
 const output = await portal({
   firstName: 'joe',
@@ -292,15 +311,15 @@ define a portal with empty parameter
 
 ```ts
 // component.vue
+// App.vue
+import Comp, { Output } from './component.vue'
+
 export interface Output {
   fullName: string
   confirm: boolean
 }
 
 const { resolve } = usePortalContext<Output>()
-
-// App.vue
-import Comp, { Output } from './component.vue'
 const portal = definePortal<Output, void>(Comp)
 const output = await portal() // only allow empty parameter
 ```

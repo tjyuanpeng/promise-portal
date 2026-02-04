@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ElMessage } from 'element-plus'
+import type { Input as BasicInput, Output as BasicOutput } from './components/basic.vue'
+import type { Output as FlowAOutput } from './components/flow-a.vue'
+import type { Output as FlowBOutput } from './components/flow-b.vue'
+import type { Output as NestedAOutput } from './components/nested-a.vue'
 import { definePortal } from 'promise-portal'
-import Basic, { Input as BasicInput, Output as BasicOutput } from './basic.vue'
-import FlowA, { Output as FlowAOutput } from './flow-a.vue'
-import FlowB, { Output as FlowBOutput } from './flow-b.vue'
-import NestedA, { Output as NestedAOutput } from './nested-a.vue'
+import Basic from './components/basic.vue'
+import FlowA from './components/flow-a.vue'
+import FlowB from './components/flow-b.vue'
+import NestedA from './components/nested-a.vue'
 
 const [basic] = definePortal<BasicOutput, BasicInput>(Basic)
 const [getA] = definePortal<FlowAOutput>(FlowA)
@@ -42,16 +45,23 @@ const onDelay = async () => {
   ElMessage(JSON.stringify(data))
 }
 </script>
+
 <template>
   <div class="main">
     <el-card>
       <el-space direction="vertical" alignment="flex-start">
-        <el-button @click="onBasic">Basic usage Case</el-button>
+        <el-button @click="onBasic">
+          Basic usage Case
+        </el-button>
         <el-button @click="onDelay">
           set unmountDelay to delay the call of unmount, preserve the gap to modal hidding animation.
         </el-button>
-        <el-button @click="onFlow">Sequential Call Case</el-button>
-        <el-button @click="onNested">Nested Call Case</el-button>
+        <el-button @click="onFlow">
+          Sequential Call Case
+        </el-button>
+        <el-button @click="onNested">
+          Nested Call Case
+        </el-button>
       </el-space>
     </el-card>
   </div>

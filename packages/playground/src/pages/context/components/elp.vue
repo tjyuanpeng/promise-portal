@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { usePortalContext } from 'promise-portal'
+import { ref } from 'vue'
 
 export interface Output {
   confirm: boolean
@@ -17,6 +17,7 @@ const onClose = () => {
   resolve({ confirm: false })
 }
 </script>
+
 <template>
   <el-dialog v-model="show" title="element-plus" width="800" @closed="onClose">
     <el-date-picker />
@@ -26,8 +27,12 @@ const onClose = () => {
       <el-table-column prop="address" label="Address" />
     </el-table>
     <template #footer>
-      <el-button @click="onClose">Cancel</el-button>
-      <el-button type="primary" @click="onConfirm">Confirm</el-button>
+      <el-button @click="onClose">
+        Cancel
+      </el-button>
+      <el-button type="primary" @click="onConfirm">
+        Confirm
+      </el-button>
     </template>
   </el-dialog>
 </template>

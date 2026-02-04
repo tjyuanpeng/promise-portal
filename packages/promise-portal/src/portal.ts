@@ -1,8 +1,9 @@
-import { App, Component, VNode, createVNode, render, inject, getCurrentInstance, defineComponent, ref, Ref } from 'vue'
+import type { App, Component, Ref, VNode } from 'vue'
+import { createVNode, defineComponent, getCurrentInstance, inject, ref, render } from 'vue'
 
-const promisePortalSymbol = process.env.NODE_ENV !== 'production' ? Symbol('promise-portal') : Symbol()
+const promisePortalSymbol = Symbol('promise-portal')
 
-export const version = `1.2.1`
+export const version = `2.0.0`
 
 export interface Options {
   unmountDelay?: number
@@ -60,10 +61,10 @@ export const usePortalContext = <TOutput = any>(options: Options = {}) => {
   if (!data) {
     throw new Error('[promise-portal]: no inject data found.')
   }
-  if (options.unmountDelay != undefined) {
+  if (options.unmountDelay !== undefined) {
     data.setUnmountDelay(options.unmountDelay)
   }
-  if (options.initialShowValue != undefined) {
+  if (options.initialShowValue !== undefined) {
     data.show.value = options.initialShowValue
   }
   return data
@@ -71,10 +72,10 @@ export const usePortalContext = <TOutput = any>(options: Options = {}) => {
 
 export const definePortal = <TOutput = any, TProps = any>(
   component: Component,
-  options: Options & { instance?: Instance<TOutput> } = {}
+  options: Options & { instance?: Instance<TOutput> } = {},
 ): [(props?: TProps, children?: unknown) => Promise<TOutput>, Component] => {
-  const instance =
-    options.instance ?? (getCurrentInstance() && inject<Instance<TOutput>>(promisePortalSymbol)) ?? getActiveInstance()
+  const instance
+    = options.instance ?? (getCurrentInstance() && inject<Instance<TOutput>>(promisePortalSymbol)) ?? getActiveInstance()
   if (!instance) {
     throw new Error('[promise-portal]: no instance found. Do you forget install promise-portal?')
   }

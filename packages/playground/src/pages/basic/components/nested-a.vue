@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { Output as NestedBOutput } from './nested-b.vue'
+import { definePortal, usePortalContext } from 'promise-portal'
 import { ref } from 'vue'
-import { usePortalContext, definePortal } from 'promise-portal'
-import NestedB, { Output as NestedBOutput } from './nested-b.vue'
+import NestedB from './nested-b.vue'
 
 export interface Output {
   value: string | null
@@ -23,6 +24,7 @@ const onClose = () => {
   resolve({ value: null })
 }
 </script>
+
 <template>
   <el-dialog :model-value="true" title="Nested A" @closed="onClose">
     <el-form>
@@ -31,8 +33,12 @@ const onClose = () => {
       </el-form-item>
     </el-form>
     <template #footer>
-      <el-button @click="onClose">Cancel</el-button>
-      <el-button type="primary" @click="onConfirm">Confirm</el-button>
+      <el-button @click="onClose">
+        Cancel
+      </el-button>
+      <el-button type="primary" @click="onConfirm">
+        Confirm
+      </el-button>
     </template>
   </el-dialog>
 </template>
