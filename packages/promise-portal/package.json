@@ -1,7 +1,7 @@
 {
   "name": "promise-portal",
   "type": "module",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "use component as a promisd-like function",
   "author": {
     "name": "tjyuanpeng",
@@ -24,8 +24,8 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
   },

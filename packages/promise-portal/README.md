@@ -293,7 +293,8 @@ definePortal(Comp, {
   // Initial value for the show ref (defaults to true)
   initialShowValue: true,
 
-  // a dom element or CSS selector to append the portal element to (defaults to document.body)
+  // a dom element or CSS selector or Ref value or a function returing a dom element,
+  // append the portal element to (defaults to document.body)
   appendTo: document.body,
 })
 ```

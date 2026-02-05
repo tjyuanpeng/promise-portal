@@ -301,6 +301,7 @@ definePortal(Comp, {
   // show 响应式变量的初始值（默认值为 true）
   initialShowValue: true,
 
+  // 可以是一个 DOM 元素、CSS 选择器、Ref 值或一个返回 DOM 元素的函数
   // 门户元素要追加到的 DOM 元素或 CSS 选择器（默认值为 document.body）
   appendTo: document.body,
 })

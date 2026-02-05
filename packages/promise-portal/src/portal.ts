@@ -1,9 +1,7 @@
-import type { App, AppContext, Component, Ref, RendererElement, VNode } from 'vue'
-import { createVNode, defineComponent, getCurrentInstance, inject, ref, render } from 'vue'
+import type { App, AppContext, Component, Ref, VNode } from 'vue'
+import { createVNode, defineComponent, getCurrentInstance, inject, isRef, ref, render, unref } from 'vue'
 
 const promisePortalSymbol = Symbol('promise-portal')
-
-export const version = `2.0.0`
 
 export interface UsePortalContextOptions {
   unmountDelay?: number
@@ -11,7 +9,7 @@ export interface UsePortalContextOptions {
 }
 
 export interface DefinePortalOptions extends UsePortalContextOptions {
-  appendTo?: string | RendererElement | null | undefined
+  appendTo?: string | HTMLElement | Ref<HTMLElement> | (() => HTMLElement)
 }
 
 export type DefinePortalResult<Output, Input> = [
@@ -74,7 +72,16 @@ export const usePortalContext = <Output = any>(options: UsePortalContextOptions 
   return scope
 }
 
-const resolveTarget = (to: DefinePortalOptions['appendTo']) => typeof to === 'string' ? document.querySelector(to) : to
+const resolveTarget = (to: DefinePortalOptions['appendTo']) => {
+  if (typeof to === 'string') {
+    return document.querySelector<HTMLElement>(to)
+  } else if (isRef(to)) {
+    return unref(to)
+  } else if (typeof to === 'function') {
+    return to()
+  }
+  return to
+}
 
 export const definePortal = <Output = any, Input = any>(component: Component, options: DefinePortalOptions = {}): DefinePortalResult<Output, Input> => {
   // get intance from inject through current component instance or from active instance

@@ -35,5 +35,3 @@ jobs:
 
       - name: Publish to npm
         run: cd packages/promise-portal && npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}

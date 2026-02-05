@@ -5,7 +5,7 @@ import Basic from './components/basic.vue'
 
 const onBasic = async () => {
   const [showBasicModal] = definePortal<BasicOutput, BasicInput>(Basic, {
-    appendTo: 'body',
+    appendTo: () => document.body,
   })
   const result = await showBasicModal({ input: 'basic usage input value' })
   console.log(result)
@@ -20,12 +20,19 @@ const onBasic2 = async () => {
 const customContainerRef = ref()
 const onBasic3 = async () => {
   const [showBasicModal] = definePortal<BasicOutput, BasicInput>(Basic, {
-    appendTo: customContainerRef.value,
+    appendTo: customContainerRef,
   })
   const result = await showBasicModal({ input: 'basic usage input value' })
   console.log(result)
 }
 const onBasic4 = async () => {
+  const [showBasicModal] = definePortal<BasicOutput, BasicInput>(Basic, {
+    appendTo: customContainerRef.value,
+  })
+  const result = await showBasicModal({ input: 'basic usage input value' })
+  console.log(result)
+}
+const onBasic5 = async () => {
   const [showBasicModal] = definePortal<BasicOutput, BasicInput>(Basic, {
     appendTo: '#error',
   })
@@ -39,15 +46,18 @@ const onBasic4 = async () => {
     <el-card>
       <el-space direction="vertical" alignment="flex-start">
         <el-button @click="onBasic">
-          append portal container to body
+          append portal container to body using a function call
         </el-button>
         <el-button @click="onBasic2">
           append portal container to a custom selector
         </el-button>
         <el-button @click="onBasic3">
-          append portal container to a custom element
+          append portal container to a Ref value
         </el-button>
         <el-button @click="onBasic4">
+          append portal container to a custom element
+        </el-button>
+        <el-button @click="onBasic5">
           set error value to append
         </el-button>
       </el-space>
