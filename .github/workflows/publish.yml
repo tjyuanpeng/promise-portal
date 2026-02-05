@@ -34,4 +34,6 @@ jobs:
         run: pnpm build
 
       - name: Publish to npm
-        run: cd packages/promise-portal && npm publish
+        run: cd packages/promise-portal && pnpm publish --no-git-checks --provenance
+        env:
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
