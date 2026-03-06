@@ -1,7 +1,7 @@
 {
   "name": "promise-portal",
   "type": "module",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "use component as a promisd-like function",
   "author": {
     "name": "tjyuanpeng",
@@ -36,8 +36,10 @@
     "dist"
   ],
   "scripts": {
-    "dev": "tsdown --watch",
-    "build": "tsdown",
+    "dev": "tsdown --watch --tsconfig tsconfig.lib.json",
+    "build": "tsdown --tsconfig tsconfig.lib.json",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
     "lint": "eslint ."
   },
@@ -45,7 +47,17 @@
     "vue": "3"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/user-event": "catalog:",
+    "@testing-library/vue": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "element-plus": "catalog:",
+    "happy-dom": "catalog:",
     "tsdown": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "unplugin-auto-import": "catalog:",
+    "unplugin-vue-components": "catalog:",
+    "vitest": "catalog:"
   }
 }

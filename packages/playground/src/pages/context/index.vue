@@ -5,6 +5,7 @@ import locale from 'ant-design-vue/es/locale/zh_CN'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { definePortal } from 'promise-portal'
 import Antdv from './components/antdv.vue'
+import ElpBtn from './components/elp-btn.vue'
 import Elp from './components/elp.vue'
 
 const [showAntdv, AntdvContextHolder] = definePortal<AntdvBOutput>(Antdv)
@@ -22,16 +23,16 @@ const onElp = async () => {
   const result = await showElp()
   console.log(result)
 }
+const ci = getCurrentInstance()
+const [showOpt] = definePortal<ElpBOutput>(Elp, { appContext: ci?.appContext, provides: (ci as any).provides })
+const onOpt = async () => {
+  const result = await showOpt()
+  console.log(result)
+}
 </script>
 
 <template>
   <div class="main">
-    <a-config-provider :locale="locale">
-      <AntdvContextHolder />
-    </a-config-provider>
-    <el-config-provider :locale="zhCn">
-      <ElpContextHolder />
-    </el-config-provider>
     <el-card>
       <el-space direction="vertical" alignment="flex-start">
         <el-button @click="onAntdv">
@@ -43,6 +44,16 @@ const onElp = async () => {
         <el-button @click="onElp">
           element-plus context holder case
         </el-button>
+        <el-button @click="onOpt">
+          element-plus option case
+        </el-button>
+        <a-config-provider :locale="locale">
+          <AntdvContextHolder />
+        </a-config-provider>
+        <el-config-provider :locale="zhCn">
+          <ElpContextHolder />
+          <ElpBtn />
+        </el-config-provider>
       </el-space>
     </el-card>
   </div>

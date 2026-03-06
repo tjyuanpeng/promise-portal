@@ -9,6 +9,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "pnpm -r --parallel run dev",
+    "test": "pnpm --filter promise-portal test",
     "build": "pnpm --filter promise-portal run build",
     "publish": "pnpm --filter promise-portal publish",
     "clean": "rm -rf ./**/node_modules; rm -rf ./**/dist"
