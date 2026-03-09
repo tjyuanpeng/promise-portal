@@ -188,6 +188,7 @@ const { resolve } = usePortalContext()
 const {
   resolve, // promise resolve handler
   reject, // promise reject handler
+  target, // portal target element which is 'appendTo' element, default is 'document.body'
   el, // portal base element, injected into 'appendTo' element
   vnode, // portal base vue vnode
   unmountDelay, // Ref for portal unmount delay (ms)
@@ -231,13 +232,17 @@ const { resolve, show } = usePortalContext<Output>({ initialShowValue: true })
 
 ### definePortal
 
-define a portal, return a portal function
+define a portal, return a portal function & ContextHolder component
+
+ContextHolder is used to get context from current render tree
 
 ```ts
 import Comp from './component.vue'
 
-const portalFunc = definePortal(Comp)
+const [portalFunc, ContextHolder] = definePortal(Comp)
 portalFunc()
+
+// <ContextHolder />
 ```
 
 you can define generic types to check input object and output object

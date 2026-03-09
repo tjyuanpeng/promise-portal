@@ -3,7 +3,7 @@
   "setupTasks": [
     {
       "name": "install",
-      "command": "pnpm install"
+      "command": "pnpm install --frozen-lockfile"
     }
   ],
   "tasks": {
@@ -12,7 +12,8 @@
       "command": "pnpm dev",
       "runAtStart": true,
       "preview": {
-        "port": 9001
+        "port": 9001,
+        "autoOpen": true
       }
     }
   }

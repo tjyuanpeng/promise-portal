@@ -1,2 +1,5 @@
+export * from './ContextProvider'
+export * from './definePortal'
 export * from './detector'
-export * from './portal'
+export * from './instance'
+export * from './usePortalContext'

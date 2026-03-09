@@ -30,3 +30,9 @@ open `http://localhost:9001/` to start
 ```bash
 pnpm build
 ```
+
+## Test
+
+```bash
+pnpm test
+```

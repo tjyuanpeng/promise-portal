@@ -190,6 +190,7 @@ const { resolve } = usePortalContext()
 const {
   resolve, // Promise 解析处理器
   reject, // Promise 拒绝处理器
+  target, // 目标元素，'appendTo' 指定的元素，默认值是document.body
   el, // 门户基础元素，会被注入到 'appendTo' 指定的元素中
   vnode, // 门户基础 Vue 虚拟节点
   unmountDelay, // 门户卸载延迟时间的响应式变量（毫秒）
@@ -233,13 +234,17 @@ const { resolve, show } = usePortalContext<Output>({ initialShowValue: true })
 
 ### definePortal
 
-定义一个 portal，返回一个 portal 函数
+定义一个 portal，返回一个 portal 函数 和 ContextHolder 组件
+
+ContextHolder 组件用于从当前渲染树中获取provides
 
 ```ts
 import Comp from './component.vue'
 
-const portalFunc = definePortal(Comp)
+const [portalFunc, ContextHolder] = definePortal(Comp)
 portalFunc()
+
+// <ContextHolder />
 ```
 
 ### 泛型参数

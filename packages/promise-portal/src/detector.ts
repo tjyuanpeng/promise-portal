@@ -25,5 +25,8 @@ function detect(options: DetectorOptions) {
 
 export const detectPromisePortalInstance = (options: DetectorOptions = {}) => {
   const timer = setInterval(() => detect(options), 200)
-  return () => clearInterval(timer)
+  return () => {
+    clearInterval(timer)
+    document.querySelector('[data-promise-portal-detector]')?.remove()
+  }
 }
