@@ -10,7 +10,7 @@ use component as a promisd-like function
 
 ## Online Demo
 
-[https://codesandbox.io/p/github/tjyuanpeng/promise-portal](https://codesandbox.io/p/github/tjyuanpeng/promise-portal)
+[https://tjyuanpeng.github.io/promise-portal](https://tjyuanpeng.github.io/promise-portal)
 
 ## Packages Info
 

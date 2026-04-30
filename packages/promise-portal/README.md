@@ -10,7 +10,7 @@ pnpm add promise-portal
 
 ## Online Demo
 
-[https://codesandbox.io/p/github/tjyuanpeng/promise-portal](https://codesandbox.io/p/github/tjyuanpeng/promise-portal)
+[https://tjyuanpeng.github.io/promise-portal](https://tjyuanpeng.github.io/promise-portal)
 
 ## Motivation
 

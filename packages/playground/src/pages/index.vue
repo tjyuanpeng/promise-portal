@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { RouteRecordRaw } from 'vue-router'
+import { useRouter } from 'vue-router'
 import routes from '~pages'
 
+const router = useRouter()
 const list = routes.filter(i => i.path !== '/').sort((a, b) => a.path.localeCompare(b.path))
-const go = (item: RouteRecordRaw) => location.href = item.path
+const go = (item: RouteRecordRaw) => router.push(item.path)
 </script>
 
 <template>

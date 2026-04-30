@@ -2,4 +2,4 @@
 
 ## Online Demo
 
-[Demo on codesandbox](https://codesandbox.io/p/github/tjyuanpeng/promise-portal)
+[https://tjyuanpeng.github.io/promise-portal](https://tjyuanpeng.github.io/promise-portal)

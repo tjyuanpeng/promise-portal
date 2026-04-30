@@ -7,6 +7,7 @@ import { defineConfig } from 'vite'
 import Pages from 'vite-plugin-pages'
 
 export default defineConfig({
+  base: '/promise-portal/',
   plugins: [
     AutoImport({
       imports: ['vue', 'vue-router'],
